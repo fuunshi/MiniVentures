@@ -1,3 +1,5 @@
+apiKey = "9796ea90a7f16a79e84289040dc82499";
+
 function updateElementContent(elementId, content) {
     const element = document.querySelector(`#${elementId}`);
     if (element) {
@@ -25,10 +27,15 @@ async function fetchData(url) {
 }
 
 async function getWeatherData(selectedCity){
-    const newApiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${selectedCity}&limit=1&appid=9796ea90a7f16a79e84289040dc82499`;
-    const data = await fetchData(newApiUrl);
-    console.log(data)
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${data[0].lat}&lon=${data[0].lon}&appid=9796ea90a7f16a79e84289040dc82499`;
+    const newApiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${selectedCity}&limit=1&appid=${apiKey}`;
+    const locationData = await fetchData(newApiUrl);
+
+    if (!locationData || locationData.length === 0) {
+        throw new Error('Location data not found');
+    }
+
+    const { lat, lon } = locationData[0];
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
     return await fetchData(apiUrl);
 }
 
@@ -45,24 +52,6 @@ function displayCurrentDate() {
     return currentDate
 
 }
-
-
-const apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=9796ea90a7f16a79e84289040dc82499";
-
-(async () => {
-    data = await fetchData(apiUrl);
-    currentDate = displayCurrentDate();
-    updateElementContent('temperature', `${data.main.temp}°K`);
-    updateElementContent('condition', `${data.weather[0].description}`);
-    updateElementContent('date', `${currentDate}`);
-    updateElementContent('location', `${data.name}`);
-    updateElementContent('windspeed', `Windspeed: ${data.wind.speed}`);
-    updateElementContent('pressure', `Pressure: ${data.main.pressure}`);
-    updateElementContent('humidity', `Humidity is ${data.main.humidity}`);
-    updateElementContent('visibility', `Visibility is ${data.visibility}`);
-
-    console.log(data);
-})();
 
 function displayData(data) {
     if (!data){
@@ -85,8 +74,21 @@ function displayData(data) {
 document.getElementById('search').addEventListener('keydown', async (e)=>{
     console.log(e)
     if (e.key === "Enter"){
-        selectedCity = e.target.value;
-        data = await getWeatherData(selectedCity);
-        displayData(data);
+        refreshData();
     }
 })
+
+async function refreshData() {
+    let selectedCity = document.getElementById('search').value;
+    if (!selectedCity){
+        selectedCity = "Kathmandu";
+    }
+    const data = await getWeatherData(selectedCity);
+    displayData(data);
+}
+
+// Refresh data every 20 seconds
+setInterval(refreshData, 20000);
+
+// Initial load
+refreshData();
