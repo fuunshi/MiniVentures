@@ -27,7 +27,7 @@ async function fetchData(url) {
 }
 
 async function getWeatherData(selectedCity){
-    const newApiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${selectedCity}&limit=1&appid=${apiKey}`;
+    const newApiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${selectedCity}&limit=1&appid=${apiKey}`;
     const locationData = await fetchData(newApiUrl);
 
     if (!locationData || locationData.length === 0) {
