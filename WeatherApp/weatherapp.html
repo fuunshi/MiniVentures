@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
 
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,16 +16,16 @@
     </div>
     <div>
         <p id="temperature">Temp</p>
-        <p id="condition"></p><img id="weather_icon" src="#" alt="weather">
+        <p id="condition"><span id="weatherIcon" class="weather-icon"></span><span id="weatherDesc"></span></p>
         <hr>
         <p id="date"></p>
         <p id="location"></p>
     </div>
     <div class="container">
-        <div class="box" id="windspeed"></div>
-        <div class="box" id="pressure"></div>
-        <div class="box" id="humidity"></div>
-        <div class="box" id="visibility"></div>
+        <div class="box" id="windspeed"><i class="fas fa-wind"></i> Windspeed</div>
+        <div class="box" id="pressure"><i class="fas fa-tachometer-alt"></i> Pressure</div>
+        <div class="box" id="humidity"><i class="fas fa-tint"></i> Humidity</div>
+        <div class="box" id="visibility"><i class="fas fa-eye"></i> Visibility</div>
     </div>
     <div id="error-box" class="error-box hidden">Location data not found!</div>
     <script src="script.js"></script>

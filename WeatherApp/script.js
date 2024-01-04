@@ -3,7 +3,7 @@ apiKey = "9796ea90a7f16a79e84289040dc82499";
 function updateElementContent(elementId, content) {
     const element = document.querySelector(`#${elementId}`);
     if (element) {
-        element.textContent = content;
+        element.innerHTML = content;
     }
 }
 
@@ -35,7 +35,7 @@ async function getWeatherData(selectedCity){
     }
 
     const { lat, lon } = locationData[0];
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
     return await fetchData(apiUrl);
 }
 
@@ -55,21 +55,57 @@ function displayCurrentDate() {
 
 }
 
+// Copy the commented one pupa
+
+
+// function displayData(data) {
+//     if (!data){
+//         console.error('No data available');
+//         return
+//     }
+//     currentDate = displayCurrentDate();
+//     document.getElementById('weather_icon').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+//     updateElementContent('temperature', `${data.main.temp}°C`);
+//     updateElementContent('condition', `${data.weather[0].description}`);
+//     updateElementContent('date', `${currentDate}`);
+//     updateElementContent('location', `${data.name}`);
+//     updateElementContent('windspeed', `Windspeed: ${data.wind.speed}m/s${'\nDegree:'+data.wind.deg}°`);
+//     updateElementContent('pressure', `Pressure: ${data.main.pressure}hPa`);
+//     updateElementContent('humidity', `Humidity is ${data.main.humidity}%`);
+//     updateElementContent('visibility', `Visibility is ${data.visibility}km`);
+
+//     console.log(data);
+// }
+
 function displayData(data) {
-    if (!data){
+    if (!data) {
         console.error('No data available');
-        return
+        showErrorBox(); // Show error box when data is not available
+        return;
     }
+
+    hideErrorBox(); // Hide error box if data is available
+
     currentDate = displayCurrentDate();
-    document.getElementById('weather_icon').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-    updateElementContent('temperature', `${data.main.temp}°K`);
-    updateElementContent('condition', `${data.weather[0].description}`);
+    updateElementContent('temperature', `${data.main.temp}°C`);
     updateElementContent('date', `${currentDate}`);
     updateElementContent('location', `${data.name}`);
-    updateElementContent('windspeed', `Windspeed: ${data.wind.speed}`);
-    updateElementContent('pressure', `Pressure: ${data.main.pressure}`);
-    updateElementContent('humidity', `Humidity is ${data.main.humidity}`);
-    updateElementContent('visibility', `Visibility is ${data.visibility}`);
+    updateElementContent('windspeed', `<i class="fas fa-wind"></i> Windspeed: ${data.wind.speed}m/s${'\nDegree:'+data.wind.deg}°`);
+    updateElementContent('pressure', `<i class="fas fa-tachometer-alt"></i> Pressure: ${data.main.pressure}hPa`);
+    updateElementContent('humidity', `<i class="fas fa-tint"></i> Humidity: ${data.main.humidity}%`);
+    updateElementContent('visibility', `<i class="fas fa-eye"></i> Visbility: ${data.visibility}km`);
+
+    // Display weather icon and description
+    const weatherIconElement = document.getElementById('weatherIcon');
+    const weatherDescElement = document.getElementById('weatherDesc');
+
+    if (weatherIconElement && weatherDescElement && data.weather && data.weather[0]) {
+        const weatherIcon = data.weather[0].icon;
+        const weatherDesc = data.weather[0].description;
+
+        weatherIconElement.innerHTML = `<img src="http://openweathermap.org/img/wn/${weatherIcon}.png" alt="Weather Icon" class="weather-icon-small">`;
+        weatherDescElement.textContent = weatherDesc;
+    }
 
     console.log(data);
 }
