@@ -47,8 +47,10 @@ function displayCurrentDate() {
     const dayOfWeek = daysOfWeek[now.getDay()];
     const date = now.getDate();
     const month = months[now.getMonth()];
+    const hour = now.getHours();
+    const minute = now.getMinutes();
 
-    const currentDate = `${dayOfWeek}, ${date} ${month}`;
+    const currentDate = `${dayOfWeek}, ${date} ${month} ${hour}:${minute}`;
     return currentDate
 
 }
