@@ -59,6 +59,7 @@ function displayData(data) {
         return
     }
     currentDate = displayCurrentDate();
+    document.getElementById('weather_icon').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
     updateElementContent('temperature', `${data.main.temp}°K`);
     updateElementContent('condition', `${data.weather[0].description}`);
     updateElementContent('date', `${currentDate}`);
@@ -83,8 +84,14 @@ async function refreshData() {
     if (!selectedCity){
         selectedCity = "Kathmandu";
     }
-    const data = await getWeatherData(selectedCity);
-    displayData(data);
+    try {
+        const data = await getWeatherData(selectedCity);
+        displayData(data);
+        hideErrorBox();
+    } catch (error) {
+        showErrorBox();
+        console.log('Error loading data', error)
+    }
 }
 
 // Refresh data every 20 seconds
@@ -92,3 +99,16 @@ setInterval(refreshData, 20000);
 
 // Initial load
 refreshData();
+
+function showErrorBox() {
+    const errorBox = document.getElementById('error-box');
+    errorBox.classList.add('visible');
+    setTimeout(() => {
+        hideErrorBox();
+    }, 3000);
+}
+
+function hideErrorBox() {
+    const errorBox = document.getElementById('error-box');
+    errorBox.classList.remove('visible');
+}
