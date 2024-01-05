@@ -133,7 +133,7 @@ async function refreshData() {
 }
 
 // Refresh data every 20 seconds
-setInterval(refreshData, 20000);
+// setInterval(refreshData, 20000);
 
 // Initial load
 refreshData();
