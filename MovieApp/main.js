@@ -23,11 +23,27 @@ async function getMovieListByTitle(title) {
 
 async function findMovie() {
     var movieName = document.querySelector('#search').value;
+    const errorBox = document.getElementById('error-box');
+    const searchList = document.querySelector('#search-list');
+    searchList.innerHTML = '';
+
     if (movieName.trim() === ''){
-        console.log('Null data detected')
-        return
+        errorBox.style.display = 'block';
+        setTimeout(() => {
+          errorBox.style.display = 'none';
+        }, 2000);
+        return;
     }
+
     const data = await getMovieListByTitle(movieName);
+    if (!data || data.Error) {
+        errorBox.style.display = 'block';
+        setTimeout(() => {
+            errorBox.style.display = 'none';
+        }, 2000);
+        return;
+    }
+
     const movies = data.Search;
     displayMovies(movies);
     console.log(data);
