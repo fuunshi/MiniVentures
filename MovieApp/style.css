@@ -7,39 +7,44 @@ body {
 .navbar {
     margin: 20px;
 }
+
 /* Define grid styles */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust column width as needed */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    /* Adjust column width as needed */
     grid-gap: 10px;
     max-width: 900px;
-    margin: 10px auto; /* Center the container horizontally */
+    margin: 10px auto;
+    /* Center the container horizontally */
     /* Adjust gap between grid items */
-  }
-  
-  /* Additional styling for each movie */
-  .movie {
+}
+
+/* Additional styling for each movie */
+.movie {
     background-color: #a7a3a3;
     border: 1px solid #ccc;
     padding: 10px;
     text-align: center;
     width: 100%;
     box-sizing: border-box;
-  }
-  
-  /* Adjust the size of the images */
-  .movie img {
+}
+
+/* Adjust the size of the images */
+.movie img {
     max-width: 100%;
     height: auto;
-  }
-  
-  /* Responsive grid layout for smaller screens */
-  @media screen and (max-width: 600px) {
+}
+
+/* Responsive grid layout for smaller screens */
+@media screen and (max-width: 600px) {
     .grid {
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Adjust column width for smaller screens */
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        /* Adjust column width for smaller screens */
     }
-  }
-  .error-message {
+}
+
+.error-message {
     display: none;
     width: 100%;
     background-color: #ff0000;
@@ -47,4 +52,4 @@ body {
     padding: 10px;
     text-align: center;
     margin-bottom: 10px;
-  }
+}
