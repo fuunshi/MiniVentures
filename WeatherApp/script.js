@@ -27,6 +27,10 @@ async function fetchData(url) {
 }
 
 async function getWeatherData(selectedCity){
+    if(!navigator.onLine){
+        const storedData = JSON.parse(localStorage.getItem(selectedCity));
+        return storedData;
+    }
     const newApiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${selectedCity}&limit=1&appid=${apiKey}`;
     const locationData = await fetchData(newApiUrl);
 
@@ -35,8 +39,10 @@ async function getWeatherData(selectedCity){
     }
 
     const { lat, lon } = locationData[0];
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-    return await fetchData(apiUrl);
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    const data = await fetchData(apiUrl);
+    localStorage.setItem(selectedCity, JSON.stringify(data))
+    return data;
 }
 
 function displayCurrentDate() {
