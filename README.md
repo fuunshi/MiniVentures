@@ -45,7 +45,7 @@ def createConn():
 1. Clone this repository:
 
    ```sh
-   git clone https://github.com/your-username/url-shortener.git
+   git clone https://github.com/fuunshi/url-shortener.git
    ```
 
 2. Install the dependencies:
@@ -62,6 +62,14 @@ def createConn():
 
 4. Navigate to `http://localhost:8000` in your web browser to access the application.
 
+## Example Usage
+
+### Screenshot
+![URL Shortener Screenshot](static/img/shorten.png)
+
+### GIF
+![URL Shortener Usage GIF](static/img/urlprocess.gif)
+
 ## Built With
 
 - [FastAPI](https://fastapi.tiangolo.com/) - A modern, fast (high-performance), web framework for building APIs with Python 3.7+.
@@ -73,9 +81,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Authors
 
-- **Your Name** - [Your GitHub Profile](https://github.com/your-username)
+- **Pranil Shrestha** - [fuunshi](https://github.com/fuunshi)
 
-## Acknowledgments
-
-- This project was inspired by [some other project](https://github.com/some-other-project).
-- Special thanks to [Some Contributor](https://github.com/some-contributor) for their contributions.
+---
